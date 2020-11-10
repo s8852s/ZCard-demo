@@ -1,0 +1,14 @@
+$error_color: red;
+
+.field_with_errors {
+  display: inline;
+
+  label {
+    color: $error_color;
+  }
+
+  input[type=text] {
+    border: solid 1px $error_color;
+    color: $error_color;
+  }
+}

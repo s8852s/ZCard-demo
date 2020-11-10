@@ -1,0 +1,12 @@
+<h1>新增看板</h1>
+
+<!-- <form action="/boards" method="POST">
+	<button type="submit">送出</button>
+
+</form> -->
+
+<%= form_for(@board) do |f| %>
+	<%= f.label :title, '看板標題' %>
+	<%= f.text_field :title %>
+	<%= f.submit %>
+<% end %>
