@@ -1,22 +1,49 @@
 class BoardsController < ApplicationController
+  before_action :find_board, only: [:show, :edit, :update, :destroy]
+
   def index
+    @boards = Board.all
   end
 
-	def new
-		@board = Board.new
+  def show
   end
 
-	def create
-		clean_params = params.require(:board).permit(:title)
-    @board = Board.new(clean_params)
+  def new
+    @board = Board.new
+  end
+
+  def create
+    @board = Board.new(board_params)
 
     if @board.save
-			# 成功
-			flash[:notice] = "成功新增看板"
-      redirect_to "/", notice: "成功新增看板"
+      redirect_to "/", notice: '成功新增看板'
     else
-			# 失敗
-			render :new #render "boards/new"
+      render :new
     end
-end
+  end
+
+  def edit
+  end
+
+  def update
+    if @board.update(board_params)
+      redirect_to root_path, notice: '更新成功'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @board.destroy
+    redirect_to root_path, notice: '看板已刪除'
+  end
+
+  private
+  def find_board
+    @board = Board.find(params[:id])
+  end
+
+  def board_params
+    params.require(:board).permit(:title)
+  end
 end

@@ -11,8 +11,16 @@
 </head>
 
 <body>
-  <p><%= flash["notice"] %></p>
-  <%= yield %>
+  <%= render "shared/navbar" %>
+  <!-- partial render -->
+
+  <%= render "shared/flash" if flash[:notice] %>
+  <!-- <p><%= flash["notice"] %></p> -->
+
+  <main class="main-section">
+    <%= yield %>
+  </main>
+
 </body>
 
 </html>
