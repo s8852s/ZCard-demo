@@ -1,1 +1,8 @@
 <h1><%= @board.title %></h1>
+
+<%= link_to "新增文章", new_board_post_path(@board) %>
+
+<% @posts.each do |post| %>
+<li><%= link_to post.title ,post_path(post)  %></li>
+<% end %>
+

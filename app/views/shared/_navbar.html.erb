@@ -1,6 +1,37 @@
 <nav>
+
   <ul>
     <li><%= link_to "首頁", root_path %></li>
     <li><%= link_to "看板列表", boards_path %></li>
+    <li><%= link_to "購買點數卡", pricing_path %></li>
+    <% if current_user %>
+    <li><%= link_to "會員資料編輯", edit_users_path %></li>
+    <% end %>
   </ul>
+
+
+  <ul>
+  <!-- 檢查票的內容 -->
+  <!-- session是一個view helper，跟link_to/form_for一樣，只是session設計成controller也可以用 -->
+  <!-- view helper要寫在/helper下 -->
+  <!-- if session[:user9527].present?  -->
+  <!-- 因為HTML沒有狀態無法記憶，每進到新的一頁就要檢查一次票才能維持登入狀態 -->
+  <% if current_user %>
+    <li><%= current_user.nickname %></li>
+    <li>
+      <%= link_to cart_path do %>
+      <i class="fas fa-cat"></i>
+      (<%= current_cart.items.count %>/<%= current_cart.total_price %>元)
+      <% end %>
+    </li>
+    <li><%= link_to "登出", sign_out_users_path, method: "delete" %></li>
+  <% else %>
+
+    <li><%= link_to "註冊", sign_up_users_path %></li>
+    <li><%= link_to "登入", sign_in_users_path %></li>
+    <% end %>
+  </ul>
+  
 </nav>
+
+

@@ -1,0 +1,5 @@
+<li>
+  [<%= comment.user.nickname %>]
+  <%= comment.content %>
+  <%= link_to "刪除", comment, method: 'delete', data: { confirm: '確認？' } %>
+</li>

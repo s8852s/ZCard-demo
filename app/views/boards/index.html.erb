@@ -9,7 +9,23 @@
         <%= link_to "刪除", board_path(board), 
         method: "delete", 
         data: {confirm: "是否確定刪除?"} %>
-        <%= link_to board.title, board_path(board) %>
+
+        <%= link_to "隱藏", hide_board_path(board),
+                    method: 'patch' if check_hide?(board) %>
+                                <!-- if check?(board, :hide) -->
+
+        <%= link_to "開放", open_board_path(board),
+                        method: 'patch' if check_open?(board) %>
+                                <!-- if check?(board, :open) -->
+
+        <%= link_to "鎖定", lock_board_path(board),
+                    method: 'patch' if check_lock?(board) %>
+                                <!-- if check?(board, :lock) -->
+
+        
+        <%= link_to board.title, board, class: board_title_css(board) %>
+         <!-- link_to board.title, board_path(board) class:'board-title board-title-#{board.state}'  -->
+        
     </li>
     <% end %>
 </ul>

@@ -6,18 +6,22 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<!-- # stylesheet_link_tag -->
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-<body>
+<body class="<%= controller_name %>-<%= action_name %>">
   <%= render "shared/navbar" %>
+  <%= render "shared/flash" if flash[:notice] %>
+  
   <!-- partial render -->
 
-  <%= render "shared/flash" if flash[:notice] %>
+  
   <!-- <p><%= flash["notice"] %></p> -->
 
   <main class="main-section">
+  
     <%= yield %>
   </main>
 

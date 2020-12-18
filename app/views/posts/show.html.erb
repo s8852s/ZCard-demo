@@ -1,0 +1,64 @@
+<h2 data-controller="favorite" data-favorite-id="<%= @post.id %>">
+    <% if user_signed_in? %>
+      <%= link_to '#', data: { action: 'favorite#go' } do %>
+        <% if current_user.favorite?(@post) %>
+          <i class="fas fa-heart" data-target="favorite.icon"></i>
+        <% else %>
+          <i class="far fa-heart" data-target="favorite.icon"></i>
+        <% end %>
+      <% end %>
+    <% end %>
+  </h2>
+
+<h2><%= @post.user.nickname %></h2>
+<h1><%= @post.title %></h1>
+
+<% # if @post.user == current_user %>
+ <% # if current_user.owned_by?(current_user) %>
+  <% #= link_to "編輯文章", "edit_post_path(@post)" %>
+    <%= link_to '編輯', edit_post_path(@post) if @post.owned_by?(current_user) %>
+
+<article>
+    <%= simple_format(@post.content) %>
+</article>
+
+<%= link_to "回上頁", :back %>
+
+
+<%= form_for(@comment, url: post_comments_path(@post), remote: true) do |f| %>
+
+    <%= f.text_area :content, placeholder: "請輸入留言" %>
+    <%= f.submit %>
+    
+<% end %>
+
+
+
+<ul class="comment">
+    <%= render @comments %>
+     <!-- render collection -->
+     <!-- app/views/comments/_comment.html.erb -->
+     <!-- 完整寫法: render partial: "comments/comment", collection: @comments -->
+</ul>
+
+<%= paginate @comments %>
+
+<!-- <ul class="comment"> -->
+    <%# @comments.each do |comment| %>
+      <%# render "comments/comment", comment: comment %>
+      <!-- 不要在迴圈裡render -->
+    <%# end %>
+<!-- </ul> -->
+
+
+<!-- <ul> -->
+    <%# @comments.each do |comment| %>
+    <!-- <li> -->
+        [<%# comment.user.nickname %>]
+        <!-- nickname 跟 comment.content在不同的資料表，用同一個迴圈跑，會造成n+1問題 -->
+        <%# comment.content %>
+        <%# link_to "刪除", comment, method: "delete", data:{ confirm: "確定刪除?"} if comment.owned_by?(current_user) %>
+    <!-- </li> -->
+    <%# end %>
+<!-- </ul> -->
+    
