@@ -5,10 +5,39 @@ class OrdersController < ApplicationController
     current_cart.items.each do |item|
       order.order_items << OrderItem.new(product: item.product, 
                                         quantity: item.quantity)
-
     end
-    order.save
+    # linepay---------------------------------------------------
+    # if order.save
+    #   resp = Faraday.post("#{ENV['line_pay_endpoint']}/v2/payments/request") do |req|
+    #   req.headers['Content-Type'] = 'application/json'
+    #   req.headers['X-LINE-ChannelId'] = ENV['line_pay_channel_id']
+    #   req.headers['X-LINE-ChannelSecret'] = ENV['line_pay_channel_secret']
+    #   req.body = {
+    #     productName: "Zcard大平台",
+    #     amount: current_cart.total_price.to_i,
+    #     currency: "TWD",
+    #     confirmUrl: "http://localhost:3000/orders/confirm",
+    #     orderId: @order.num
+    #   }.to_json
+    #   end
 
+    #   result = JSON.parse(resp.body)
+
+    #   if result['returnCode'] == "0000"
+    #     payment_url = result['info']['paymentUrl']['web']
+    #     redirect_to payment_url
+    #   else
+    #     flash[:notice] = '付款發生錯誤' 
+    #     render 'carts/checkout'
+      
+    #   end
+
+
+    #   redirect_to root_path, notice: "訂單已建立"
+    # else
+    # end
+    # linepay---------------------------------------------------
+    order.save
     # 付錢
     nonce = params[:payment_method_nonce]
     result = gateway.transaction.sale(

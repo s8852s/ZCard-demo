@@ -19,7 +19,8 @@ class BoardsController < ApplicationController
   end
 
   def create
-    @board = Board.new(board_params)
+    # @board = Board.new(board_params)
+    @board = current_user.boards.new(board_params)
 
     if @board.save
       redirect_to "/", notice: '成功新增看板'
@@ -67,5 +68,6 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:title)
+    # params.permit(:title)
   end
 end
