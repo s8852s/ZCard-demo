@@ -18,10 +18,11 @@
   <!-- 因為HTML沒有狀態無法記憶，每進到新的一頁就要檢查一次票才能維持登入狀態 -->
   <% if current_user %>
     <li><%= current_user.nickname %></li>
-    <li>
+    <li data-controller="cart" data-action="abc@document->cart#update">
       <%= link_to cart_path do %>
       <i class="fas fa-cat"></i>
-      (<%= current_cart.items.count %>/<%= current_cart.total_price %>元)
+      (<span class=''><%= current_cart.items.count %>/class='cartTotalPrice'>
+        <%= current_cart.total_price %>元</span>)
       <% end %>
     </li>
     <li><%= link_to "登出", sign_out_users_path, method: "delete" %></li>

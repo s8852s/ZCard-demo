@@ -23,6 +23,10 @@ end
 # scope :cheap, -> { where("price < 50") }
 # scope :forb, -> { where("age >= 18") }
 # scope :x, -> { cheap.forb }
+# scope是類別方法
+# def self.cheap
+#   where(...)
+# end
 
 # controller
 # Product.forb.cheap

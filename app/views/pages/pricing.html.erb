@@ -1,12 +1,15 @@
 <h1>購買點數卡</h1>
 
 
-<ul>
+<ul >
   <% @products.each do |product| %>
-  <li>
+  <li data-controller= 'pricing'>
     <%= product.title %> 
     (<%= product.price %>元)
-    <%= link_to "加到購物車", add_item_cart_path(product), method: 'post' %>
+    <%= link_to "加到購物車", '#', 
+                              remote: true, 
+                              data: { 
+                                product: product.id ,action:'pricing#addToCart'} %>
   </li>
   <% end %>
 </ul>

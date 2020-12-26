@@ -6,7 +6,11 @@ class CartsController < ApplicationController
 		# cart = Cart.from_hash(session[:cart9527])
 		current_cart.add_item(product.id)
 		session[:cart9527] = current_cart.serialize
-		redirect_to pricing_path, notice: "已經加入購物車"
+		# redirect_to pricing_path, notice: "已經加入購物車"
+		render json: { status: 'ok', 
+									count: current_cart.items.count, 
+									total_price: current_cart.total_price } 
+									# pricing要加remote: true
 	end
 
 	def show
